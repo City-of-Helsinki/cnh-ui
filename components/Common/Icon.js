@@ -18,6 +18,9 @@ import bars from 'hel-icons/dist/shapes/bars.svg';
 import exclamationCircle from './icons/exclamation-circle.svg';
 import chartPie from './icons/chart-pie.svg';
 import chartLine from './icons/chart-line.svg';
+import good from './icons/good.svg';
+import goodSlow from './icons/good-slow.svg';
+import bad from './icons/bad.svg';
 
 const icons = {
   helsinkiLogo,
@@ -38,6 +41,9 @@ const icons = {
   user,
   heart,
   bars,
+  bad,
+  good,
+  goodSlow
 };
 
 class Icon extends React.Component {

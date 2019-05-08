@@ -2,6 +2,7 @@ import React from 'react';
 import { Row, Col } from 'reactstrap';
 import styled from 'styled-components';
 import moment from '../../common/moment';
+import IndicatorValueGraph from './IndicatorValueGraph';
 
 const ValueSummary = styled.section`
   margin: 2em 0 0;
@@ -145,6 +146,7 @@ function IndicatorValueSummary({ timeResolution, values, goals, unit }) {
           {goalDisplay}
         </Col>
       </Row>
+      <IndicatorValueGraph initialValue={4997} initialTime={1995} currentValue={6606} currentTime={2007} goalValue={4600} goalTime={2035} unit={unit.name}/>
     </ValueSummary>
   );
 }
