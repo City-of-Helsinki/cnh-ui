@@ -17,7 +17,6 @@ const PersonDetails = styled(Media)`
 `;
 
 const Name = styled.p`
-  font-size: 1.33em;
   line-height: 1;
   margin-bottom: .25em;
   font-weight: 600;
@@ -42,7 +41,12 @@ const Avatar = styled.img`
 `;
 
 const Address = styled.address`
-  margin-top: 2em;
+  margin-top: 1em;
+  margin-bottom: 0;
+`;
+
+const CollapseButton = styled(Button)`
+  padding: 0;
 `;
 
 class ContactPerson extends React.Component {
@@ -74,12 +78,20 @@ class ContactPerson extends React.Component {
             <Name>
               {`${person.firstName} ${person.lastName}`}
             </Name>
-            <PersonRole>*Titteli*</PersonRole>
-            <PersonOrg>*Organisaatio*</PersonOrg>
-            <Button onClick={this.toggle} color="primary" outline size="sm">Yhteystiedot</Button>
+            <PersonRole>Titteli puuttuu</PersonRole>
+            <PersonOrg>Organisaatio puuttuu</PersonOrg>
+            <CollapseButton
+              onClick={this.toggle}
+              color="link"
+              size="sm"
+              aria-expanded={collapse}
+              aria-controls={`contact-${person.id}`}
+            >
+              Yhteystiedot
+            </CollapseButton>
           </PersonDetails>
         </Media>
-        <Collapse isOpen={collapse}>
+        <Collapse isOpen={collapse} id={`contact-${person.id}`}>
           <Address>
             Sähköposti:
             {' '}
