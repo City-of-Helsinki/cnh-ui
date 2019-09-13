@@ -10,6 +10,9 @@ const ContactList = styled.ul`
   padding: 0;
 `;
 
+const Note = styled.div`
+    color: ${(props) => props.theme.themeColors.dark};
+`;
 
 function ContactPersons(props) {
   const { persons } = props;
@@ -23,7 +26,7 @@ function ContactPersons(props) {
               <ContactPerson person={person} />
             </li>
           ))
-          : <h6>Ei merkittyjä yhteyshenkilöitä</h6>}
+          : <Note>Ei merkittyjä yhteyshenkilöitä</Note>}
       </ContactList>
     </>
   );

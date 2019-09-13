@@ -4,6 +4,8 @@ import styled from 'styled-components';
 
 import { Media, Button, Collapse } from 'reactstrap';
 
+import AvatarImage from '../../images/default-avatar.png';
+
 const Person = styled.div`
   margin-top: 1em;
   padding-bottom: 1em;
@@ -16,13 +18,22 @@ const PersonDetails = styled(Media)`
 
 const Name = styled.p`
   font-size: 1.33em;
-  margin: 0;
+  line-height: 1;
+  margin-bottom: .25em;
   font-weight: 600;
 `;
 
 const PersonRole = styled.p`
+  margin-bottom: .25em;
+  color: ${(props) => props.theme.themeColors.dark};
+  font-weight: 600;
+  line-height: 1;
+`;
+
+const PersonOrg = styled.p`
   margin-bottom: .5em;
   color: ${(props) => props.theme.themeColors.dark};
+  line-height: 1;
 `;
 
 const Avatar = styled.img`
@@ -54,8 +65,8 @@ class ContactPerson extends React.Component {
         <Media key={person.id}>
           <Media left>
             <Avatar
-              src={person.avatarUrl}
-              className="rounded-circle border"
+              src={person.avatarUrl ? person.avatarUrl : AvatarImage}
+              className="rounded-circle"
               alt={`${person.firstName} ${person.lastName}`}
             />
           </Media>
@@ -63,7 +74,8 @@ class ContactPerson extends React.Component {
             <Name>
               {`${person.firstName} ${person.lastName}`}
             </Name>
-            <PersonRole>Titteli</PersonRole>
+            <PersonRole>*Titteli*</PersonRole>
+            <PersonOrg>*Organisaatio*</PersonOrg>
             <Button onClick={this.toggle} color="primary" outline size="sm">Yhteystiedot</Button>
           </PersonDetails>
         </Media>
