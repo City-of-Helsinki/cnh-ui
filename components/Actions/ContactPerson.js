@@ -60,26 +60,24 @@ query ContactDetails($id: ID!) {
   }
 }`;
 
-class ContactDetails extends React.Component {
-  render() {
-    const { id } = this.props;
-    return (
-      <Query query={GET_CONTACT_DETAILS} variables={{ id }}>
-        {({ loading, error, data }) => {
-          if (loading) return <span>Ladataan</span>;
-          if (error) return <span>{error.message}</span>;
-          const { person } = data;
-          return (
-            <Address>
-              Sähköposti:
-              {' '}
-              <a href={`mailto:${person.email}`}>{person.email}</a>
-            </Address>
-          );
-        }}
-      </Query>
-    );
-  }
+const ContactDetails = (props) => {
+  const { id } = props;
+  return (
+    <Query query={GET_CONTACT_DETAILS} variables={{ id }}>
+      {({ loading, error, data }) => {
+        if (loading) return <span>Ladataan</span>;
+        if (error) return <span>{error.message}</span>;
+        const { person } = data;
+        return (
+          <Address>
+            Sähköposti:
+            {' '}
+            <a href={`mailto:${person.email}`}>{person.email}</a>
+          </Address>
+        );
+      }}
+    </Query>
+  );
 }
 
 class ContactPerson extends React.Component {
