@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { Query } from 'react-apollo';
+import gql from 'graphql-tag';
 
 import { Media, Button, Collapse } from 'reactstrap';
 
@@ -49,6 +51,35 @@ const CollapseButton = styled(Button)`
   padding: 0;
 `;
 
+const GET_CONTACT_DETAILS = gql`
+query ContactDetails($id: ID!) {
+  person(id: $id) {
+    email
+  }
+}`;
+
+class ContactDetails extends React.Component {
+  render() {
+    const { id } = this.props;
+    return (
+      <Query query={GET_CONTACT_DETAILS} variables={{ id }}>
+        {({ loading, error, data }) => {
+          if (loading) return <span>Ladataan</span>;
+          if (error) return <span>{error.message}</span>;
+          const { person } = data;
+          return (
+            <Address>
+              Sähköposti:
+              {' '}
+              <a href={`mailto:${person.email}`}>{person.email}</a>
+            </Address>
+          );
+        }}
+      </Query>
+    );
+  }
+}
+
 class ContactPerson extends React.Component {
   constructor(props) {
     super(props);
@@ -92,19 +123,7 @@ class ContactPerson extends React.Component {
           </PersonDetails>
         </Media>
         <Collapse isOpen={collapse} id={`contact-${person.id}`}>
-          <Address>
-            Sähköposti:
-            {' '}
-            <a href={`mailto:${person.firstName}.${person.lastName}@hel.fi`}>
-              {`${person.firstName}.${person.lastName}@hel.fi`}
-            </a>
-            <br />
-            Puhelin:
-            {' '}
-            <a href="tel:+358 555 5555">
-              +358 555 5555
-            </a>
-          </Address>
+          {collapse && <ContactDetails id={person.id}/>}
         </Collapse>
       </Person>
     );
