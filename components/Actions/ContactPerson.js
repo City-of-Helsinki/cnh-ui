@@ -20,20 +20,22 @@ const PersonDetails = styled(Media)`
 
 const Name = styled.p`
   line-height: 1;
-  margin-bottom: .25em;
+  margin-bottom: .5em;
   font-weight: 600;
 `;
 
 const PersonRole = styled.p`
-  margin-bottom: .25em;
+  margin-bottom: .5em;
   color: ${(props) => props.theme.themeColors.dark};
+  font-size: 90%;
   font-weight: 600;
   line-height: 1;
 `;
 
 const PersonOrg = styled.p`
-  margin-bottom: .5em;
+  margin-bottom: 1em;
   color: ${(props) => props.theme.themeColors.dark};
+  font-size: 90%;
   line-height: 1;
 `;
 
@@ -109,8 +111,8 @@ class ContactPerson extends React.Component {
             <Name>
               {`${person.firstName} ${person.lastName}`}
             </Name>
-            <PersonRole>Titteli puuttuu</PersonRole>
-            <PersonOrg>Organisaatio puuttuu</PersonOrg>
+            <PersonRole>{person.title}</PersonRole>
+            <PersonOrg>{person.organization.name}</PersonOrg>
             <CollapseButton
               onClick={this.toggle}
               color="link"
@@ -136,6 +138,10 @@ ContactPerson.propTypes = {
     firstName: PropTypes.string.isRequired,
     lastName: PropTypes.string.isRequired,
     avatarUrl: PropTypes.string,
+    title: PropTypes.string,
+    organization: PropTypes.shape({
+      name: PropTypes.string,
+    }),
   }).isRequired,
 };
 

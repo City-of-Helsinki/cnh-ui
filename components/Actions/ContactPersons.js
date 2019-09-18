@@ -36,6 +36,10 @@ ContactPersons.propTypes = {
     firstName: PropTypes.string.isRequired,
     lastName: PropTypes.string.isRequired,
     avatarUrl: PropTypes.string,
+    title: PropTypes.string,
+    organization: PropTypes.shape({
+      name: PropTypes.string,
+    }),
   })).isRequired,
 };
 
