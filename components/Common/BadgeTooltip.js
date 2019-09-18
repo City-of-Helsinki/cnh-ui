@@ -2,9 +2,11 @@ import React from 'react';
 import { Badge, Tooltip } from 'reactstrap';
 import styled from 'styled-components';
 
-const StyledBadge = styled(Badge)`
-  background-color: ${props => props.theme.brandDark};
-  color: #ffffff;
+const TooltipBadge = styled.span`
+  .badge {
+    background-color: ${props => props.theme.brandDark};
+    color: #ffffff;
+  }
 `;
 
 class BadgeTooltip extends React.Component {
@@ -28,12 +30,12 @@ class BadgeTooltip extends React.Component {
     const id = this.props.id.replace(/[: ]/g, '_');
 
     return (
-      <span>
-        <StyledBadge pill href="#" id={id}>{abbreviation || name}</StyledBadge>
+      <TooltipBadge>
+        <Badge pill href="#" id={id}>{abbreviation || name}</Badge>
         <Tooltip placement="top" isOpen={this.state.tooltipOpen} target={id} toggle={this.toggle}>
           {name}
         </Tooltip>
-      </span>
+      </TooltipBadge>
     );
   }
 }
