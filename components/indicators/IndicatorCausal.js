@@ -296,9 +296,31 @@ class IndicatorCausal extends React.Component {
       });
     });
   }
+  
+  isConnectedToOutcome (node, nodes, edges) {
+    if (node.type === 'action' || node.indicator_level == 'strategic') {
+      return true;
+    }
+  
+    for(let edge of edges.filter(edge => edge.from === node.id)) {
+      if (this.isConnectedToOutcome(nodes.find(node => node.id == edge.to), nodes, edges)) {
+        return true;
+      }
+    }
+    return false;
+  }
 
   combineData(nodes, edges) {
     // Combine edges data to indicator nodes
+
+    // Prune nodes that do not reach a strategic indicator.
+    // Could be a lot faster, but we're dealing with quite small
+    // graphs here.
+    nodes = nodes.filter(node => this.isConnectedToOutcome(node, nodes, edges));
+    let nodeids = nodes.map(node => node.id);
+    edges = edges.filter(edge => nodeids.includes(edge.to) && nodeids.includes(edge.from));
+
+
     this.indicators = nodes;
     this.indicators.forEach((item, index) => {
       this.indicators[index].from = edges.filter(edge => edge.from === item.id);
