@@ -110,7 +110,7 @@ const Connection = styled.div`
         return '#333333';
     }
   }};
-  transform: ${props => `rotate(${props.rotate * 90}deg)`};
+  /*transform: ${props => `rotate(${props.direction * 90}deg)`};*/
   &:before {
     content: '';
     position: absolute;
@@ -248,7 +248,9 @@ class IndicatorCausal extends React.Component {
     if (columned[index].indicator_level !== 'strategic') {
       columned[index].from.forEach((edge) => {
         const nodeIndex = columned.findIndex(item => item.id === edge.to);
-        this.setColumns(columned, nodeIndex, column + 1);
+	if (!('column' in nodes[nodeIndex])) {
+          this.setColumns(columned, nodeIndex, column + 1);
+	}
       });
     }
     return columned;
@@ -347,9 +349,17 @@ class IndicatorCausal extends React.Component {
     if (edgeLength === 0) {
       edgeStyle.width = '1px';
       edgeStyle.height = `${24}px`;
-      edgeStyle.top = '-24px';
+      if(edgeHeight < 0) {
+      	edgeStyle.bottom = '-24px';
+	edgeStyle.top = undefined;
+	direction = -1;
+      } else {
+        // TODO: This case hasn't been tested!
+	edgeStyle.top = '-24px';
+	direction = 1;
+
+      }
       edgeStyle.left = `${40 + (vOffset * 5)}px`;
-      direction = (edgeHeight >= 0) ? 1 : -1;
     }
 
     return (
