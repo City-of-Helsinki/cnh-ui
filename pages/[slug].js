@@ -84,6 +84,12 @@ class StaticPage extends React.Component {
     const plan = this.context;
     const { slug } = this.props;
 
+    // modifies external links in given html to open in new tab or window
+    const modifyLinks = html => html.replace(
+      /<a href="http/g,
+      '<a target="_blank" href="http',
+    );
+
     return (
       <Query query={GET_CONTENT} variables={{ plan: plan.identifier, slug: slug }}>
         {({ loading, error, data }) => {
@@ -94,6 +100,10 @@ class StaticPage extends React.Component {
           if (!staticPage) {
             return <ErrorMessage statusCode={404} message="Sivua ei löydy" />
           }
+
+          data.staticPage.questions.forEach((question) => {
+            question.answer = modifyLinks(question.answer);
+          });
 
           return (
             <Layout>
