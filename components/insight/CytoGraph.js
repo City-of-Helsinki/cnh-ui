@@ -6,14 +6,14 @@ import {
 import moment from 'moment';
 import styled, { withTheme } from 'styled-components';
 import cytoscape from 'cytoscape';
-import dagre from 'cytoscape-dagre';
+import klay from 'cytoscape-klay';
 import { withTranslation } from '../../common/i18n';
 import { getIndicatorLinkProps, getActionLinkProps } from '../../common/links';
 import { Meta } from '../layout';
 import { Router } from '../../routes';
 import InsightFilter from './InsightFilter';
 
-cytoscape.use(dagre);
+cytoscape.use(klay);
 
 const VisContainer = styled.div`
   width: 100%;
@@ -220,8 +220,15 @@ class CytoGraph extends React.Component {
     });
 
     const cyLayoutOptions = {
-      name: 'dagre',
-      ranker: 'longest-path',
+      name: 'klay',
+      klay: {
+        mergeEdges: true,
+        thoroughness: 10,
+        spacing: 40,
+        layoutHierarchy: true,
+        mergeHierarchyCrossingEdges: false,
+        nodePlacement: 'LINEAR_SEGMENTS',
+      },
       edgeWeight: (edge) => {
         let weight = 1;
 
@@ -276,7 +283,7 @@ class CytoGraph extends React.Component {
             'text-outline-width': 3,
             'text-outline-color': 'data(color)',
             'color': '#ffffff',
-            'curve-style': 'bezier',
+            'curve-style': 'taxi',
             'font-size': '18px',
             'font-weight': '600',
             width: 2,
