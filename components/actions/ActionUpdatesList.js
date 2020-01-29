@@ -5,6 +5,7 @@ import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Row, Col, Media } from 'reactstrap';
 
+import HtmlContent from '../common/HtmlContent';
 import moment from '../../common/moment';
 import PlanContext from '../../context/plan';
 import { withTranslation } from '../../common/i18n';
@@ -93,7 +94,7 @@ function ActionStatusUpdate(props) {
         </Media>
         <h3>{ title }</h3>
       </ActionUpdateHeader>
-      <div className="text-content" dangerouslySetInnerHTML={{ __html: content }} />
+      <HtmlContent html={content} className="text-content" />
     </ActionUpdate>
   );
 }

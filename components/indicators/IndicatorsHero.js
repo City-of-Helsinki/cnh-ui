@@ -6,6 +6,7 @@ import {
 import { withTranslation } from '../../common/i18n';
 import styled, { withTheme } from 'styled-components';
 import ActiveLink from '../../common/ActiveLink';
+import HtmlContent from '../common/HtmlContent';
 
 const IndicatorsJumbo = styled.div`
   background-color: ${props => props.theme.neutralLight};
@@ -47,7 +48,7 @@ class IndicatorsHero extends React.Component {
             { leadContent && (
               <Row>
                 <Col sm="12" md="8" className="mb-1">
-                  <div className="text-content" dangerouslySetInnerHTML={{ __html: leadContent }} />
+                  <HtmlContent html={leadContent} className="text-content" />
                 </Col>
               </Row>
             )}

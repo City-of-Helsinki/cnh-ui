@@ -12,6 +12,7 @@ import PlanContext from '../context/plan';
 import ErrorMessage from '../components/common/ErrorMessage';
 import Accordion from '../components/common/Accordion';
 import ContentLoader from '../components/common/ContentLoader';
+import HtmlContent from '../components/common/HtmlContent';
 
 const HeaderImage = styled.div`
   background-image: url(${(props) => props.image});
@@ -145,7 +146,9 @@ const Content = ({ page }) => {
         <Container>
           <Row>
             <Col lg={{ size:8, offset: 2 }} md={{ size: 10, offset: 1 }}>
-              <ContentMarkup dangerouslySetInnerHTML={{ __html: content }} />
+              <ContentMarkup>
+                <HtmlContent html={content} />
+              </ContentMarkup>
             </Col>
           </Row>
         </Container>
@@ -163,7 +166,7 @@ const Content = ({ page }) => {
                           {faq.title}
                         </Accordion.Header>
                         <Accordion.Body>
-                          <div className="text-content" dangerouslySetInnerHTML={{ __html: faq.answer }}/>
+                          <HtmlContent html={faq.answer} className="text-content" />
                         </Accordion.Body>
                       </Accordion.Item>
                     ))}

@@ -15,6 +15,7 @@ import { withTranslation } from '../../common/i18n';
 import ContentLoader from '../common/ContentLoader';
 import ErrorMessage from '../common/ErrorMessage';
 import ErrorBoundary from '../common/ErrorBoundary';
+import HtmlContent from '../common/HtmlContent';
 import { Meta } from '../layout';
 
 import IndicatorGraph from '../graphs/IndicatorGraph';
@@ -86,7 +87,7 @@ const IndicatorHero = styled(BaseJumbotron)`
   a {
     color: inherit;
   }
-  
+
   h1 {
     hyphens: auto;
 
@@ -178,7 +179,7 @@ function IndicatorDetails(props) {
       <Container>
         <Row>
           <Col md="10" className="mb-5">
-            <div className="mt-4" dangerouslySetInnerHTML={{ __html: indicator.description }} />
+            <HtmlContent html={indicator.description} className="mt-4" />
           </Col>
         </Row>
         {(indicator.latestGraph || indicator.values.length > 0) &&
