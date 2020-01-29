@@ -151,6 +151,11 @@ blockquote {
   min-width: 20em;
 }
 
+/* Styling for monitoring quality points popover for action */
+.action-mqpoints-popover {
+  min-width: 40em; /* Make popover wide enough */
+}
+
 /// Open City Design Style defaults
 
 .btn-outline-light:hover {

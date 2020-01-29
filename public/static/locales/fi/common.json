@@ -53,6 +53,8 @@
     "action-name-title": "Toimenpide / Nimi",
     "action-impact": "Vaikutus",
     "action-monitoring": "Seuranta",
+    "action-monitoring-popover-header": "Seurannan laatua kuvaava luokitus",
+    "action-monitoring-popover-body": "Toimenpide saa sitä korkeamman luokan, mitä tarkemmin toimenpidettä seurataan.",
     "action-merged": "Yhdistetyt toimenpiteet",
     "action-status-merged": "Yhdistetty toimenpiteeseen",
     "previous": "Edellinen",

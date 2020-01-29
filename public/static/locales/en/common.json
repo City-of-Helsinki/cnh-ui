@@ -53,6 +53,8 @@
     "action-name-title": "Action theme",
     "action-impact": "Impact",
     "action-monitoring": "Monitoring",
+    "action-monitoring-popover-header": "Monitoring rating",
+    "action-monitoring-popover-body": "The rating tells how well the action is being monitored.",
     "action-merged": "Merged actions",
     "action-status-merged": "Merged with action",
     "previous": "Previous",
