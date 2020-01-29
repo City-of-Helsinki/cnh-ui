@@ -28,6 +28,7 @@ import EmissionScopeIcon from './EmissionScopeIcon';
 import ContentLoader from '../common/ContentLoader';
 import Icon from '../common/Icon';
 import ErrorMessage from '../common/ErrorMessage';
+import MQPoints from './MQPoints';
 
 
 const GET_ACTION_DETAILS = gql`
@@ -125,6 +126,18 @@ query ActionDetails($plan: ID!, $id: ID!) {
     previousAction {
       id
       identifier
+    }
+    monitoringQualityPoints {
+      id
+    }
+  }
+
+  plan(id: $plan) {
+    id
+    monitoringQualityPoints {
+      id
+      identifier
+      descriptionYes
     }
   }
 }`;
@@ -270,6 +283,7 @@ function ActionDetails(props) {
   const {
     t,
     action,
+    monitoringQualityPoints,
     plan,
     theme,
   } = props;
@@ -426,6 +440,15 @@ function ActionDetails(props) {
                 />
               )}
             </ActionSection>
+            <ActionSection>
+              <h5>{ t('action-monitoring') }</h5>
+              <MQPoints
+                id={`action-mqpoints-${action.id}`}
+                action={action}
+                points={monitoringQualityPoints}
+                t={t}
+              />
+            </ActionSection>
             { action.schedule.length ? (
               <ActionSection>
                 <h5>{ t('action-timeline') }</h5>
@@ -495,10 +518,17 @@ class ActionContent extends React.Component {
           if (loading) return <ContentLoader />;
           if (error) return <ErrorMessage message={error.message} />;
           const { action } = data;
+          const { monitoringQualityPoints } = data.plan;
           if (!action) {
             return <ErrorMessage statusCode={404} message={t('action-not-found')} />;
           }
-          return <ActionDetails action={action} theme={theme} plan={plan} t={t} />;
+          return <ActionDetails
+            action={action}
+            monitoringQualityPoints={monitoringQualityPoints}
+            theme={theme}
+            plan={plan}
+            t={t}
+          />;
           /* ActionContent action={data.action} theme={ theme } /> */
         }}
       </Query>
