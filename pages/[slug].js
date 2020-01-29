@@ -12,6 +12,7 @@ import PlanContext from '../context/plan';
 import ErrorMessage from '../components/common/ErrorMessage';
 import Accordion from '../components/common/Accordion';
 import ContentLoader from '../components/common/ContentLoader';
+import HtmlContent from '../components/common/HtmlContent';
 
 const HeaderImage = styled.div`
   background-image: url(${(props) => props.image});
@@ -84,12 +85,6 @@ class StaticPage extends React.Component {
     const plan = this.context;
     const { slug } = this.props;
 
-    // modifies external links in given html to open in new tab or window
-    const modifyLinks = html => html.replace(
-      /<a href="http/g,
-      '<a target="_blank" href="http',
-    );
-
     return (
       <Query query={GET_CONTENT} variables={{ plan: plan.identifier, slug: slug }}>
         {({ loading, error, data }) => {
@@ -100,10 +95,6 @@ class StaticPage extends React.Component {
           if (!staticPage) {
             return <ErrorMessage statusCode={404} message="Sivua ei löydy" />
           }
-
-          data.staticPage.questions.forEach((question) => {
-            question.answer = modifyLinks(question.answer);
-          });
 
           return (
             <Layout>
@@ -156,7 +147,9 @@ const Content = (props) => {
         <Container>
           <Row>
             <Col lg={{ size:8, offset: 2 }} md={{ size: 10, offset: 1 }}>
-              <ContentMarkup dangerouslySetInnerHTML={{ __html: content }} />
+              <ContentMarkup>
+                <HtmlContent html={content} />
+              </ContentMarkup>
             </Col>
           </Row>
         </Container>
@@ -174,7 +167,7 @@ const Content = (props) => {
                           {faq.title}
                         </Accordion.Header>
                         <Accordion.Body>
-                          <div className="text-content" dangerouslySetInnerHTML={{ __html: faq.answer }}/>
+                          <HtmlContent html={faq.answer} className="text-content" />
                         </Accordion.Body>
                       </Accordion.Item>
                     ))}

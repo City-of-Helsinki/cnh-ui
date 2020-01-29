@@ -11,6 +11,7 @@ import styled from 'styled-components';
 import { withTranslation } from '../../common/i18n';
 import { captureMessage } from '../../common/sentry';
 import ContentLoader from '../common/ContentLoader';
+import HtmlContent from '../common/HtmlContent';
 import PlanContext from '../../context/plan';
 import ActionListFilters from './ActionListFilters';
 import ActionCardList from './ActionCardList';
@@ -227,7 +228,7 @@ class ActionListFiltered extends React.Component {
                 {leadContent && (
                   <Row>
                     <Col sm="12" md="8" className="mb-5">
-                      <div className="text-content" dangerouslySetInnerHTML={{ __html: leadContent }} />
+                      <HtmlContent html={leadContent} className="text-content" />
                     </Col>
                   </Row>
                 )}

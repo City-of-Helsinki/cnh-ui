@@ -10,6 +10,7 @@ import styled from 'styled-components';
 import { captureException } from '../../common/sentry';
 import { withTranslation } from '../../common/i18n';
 import ContentLoader from '../common/ContentLoader';
+import HtmlContent from '../common/HtmlContent';
 import PlanContext from '../../context/plan';
 import ImpactGroupActionList from './ImpactGroupActionList';
 
@@ -147,7 +148,7 @@ class DashboardLoaded extends React.PureComponent {
             {leadContent && (
               <Row>
                 <Col sm="12" md="12" className="mb-5">
-                  <div className="text-content" dangerouslySetInnerHTML={{ __html: leadContent }} />
+                  <HtmlContent html={leadContent} className="text-content" />
                 </Col>
               </Row>
             )}

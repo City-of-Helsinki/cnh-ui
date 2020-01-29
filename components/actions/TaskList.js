@@ -1,7 +1,9 @@
 import React from 'react';
 import { ListGroup, ListGroupItem as BaseListGroupItem } from 'reactstrap';
 import styled from 'styled-components';
+import { modifyExternalLinks } from '../../common/links';
 import moment from '../../common/moment';
+import HtmlContent from '../common/HtmlContent';
 import Icon from '../common/Icon';
 import { withTranslation } from '../../common/i18n';
 
@@ -63,7 +65,7 @@ class TaskList extends React.Component {
             </TaskMeta>
             <TaskContent>
               <h6>{item.name}</h6>
-              <div className="text-content"><small><span dangerouslySetInnerHTML={{ __html: item.comment }} /></small></div>
+              <HtmlContent html={item.comment} className="text-content small" />
             </TaskContent>
           </TaskWrapper>
         </ListGroupItem>
@@ -80,7 +82,7 @@ class TaskList extends React.Component {
                 </TaskMeta>
                 <TaskContent>
                   <h6>{item.name}</h6>
-                  <div className="text-content"><small><span dangerouslySetInnerHTML={{ __html: item.comment }} /></small></div>
+                  <HtmlContent html={item.comment} className="text-content small" />
                 </TaskContent>
               </TaskWrapper>
             </ListGroupItem>

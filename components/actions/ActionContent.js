@@ -28,6 +28,7 @@ import EmissionScopeIcon from './EmissionScopeIcon';
 import ContentLoader from '../common/ContentLoader';
 import Icon from '../common/Icon';
 import ErrorMessage from '../common/ErrorMessage';
+import HtmlContent from '../common/HtmlContent';
 
 
 const GET_ACTION_DETAILS = gql`
@@ -347,13 +348,16 @@ function ActionDetails(props) {
       <Container>
         <Row>
           <Col md="7" lg="8">
-            {action.description
-            && <ActionSection className="text-content" dangerouslySetInnerHTML={{ __html: action.description }} />}
+            {action.description && (
+              <ActionSection>
+                <HtmlContent html={action.description} className="text-content" />
+              </ActionSection>
+            )}
             {cleanOfficialText
             && <OfficialText>
               <h5>{ t('action-description-official') }</h5>
               <strong>{ t('action-as-in-plan') }</strong>
-              <div dangerouslySetInnerHTML={{ __html: cleanOfficialText }} />
+              <HtmlContent html={cleanOfficialText } />
               {generalContent.officialNameDescription && (
                 <small>{`(${generalContent.officialNameDescription})`}</small>
               )}
