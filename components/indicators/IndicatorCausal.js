@@ -112,7 +112,7 @@ const Connection = styled.div`
         return '#333333';
     }
   }};
-  transform: ${props => `rotate(${props.rotate * 90}deg)`};
+  /*transform: ${props => `rotate(${props.direction * 90}deg)`};*/
   &:before {
     content: '';
     position: absolute;
@@ -246,6 +246,9 @@ class IndicatorCausal extends React.Component {
   setColumns(nodes, index, column) {
     // Assign indicators with columns
     const columned = nodes;
+    if ('column' in nodes[index]) {
+    	column = Math.min(column, nodes[index].column)
+    }
     columned[index].column = column;
     if (columned[index].indicator_level !== 'strategic') {
       columned[index].from.forEach((edge) => {
@@ -298,9 +301,31 @@ class IndicatorCausal extends React.Component {
       });
     });
   }
+  
+  isConnectedToOutcome (node, nodes, edges) {
+    if (node.type === 'action' || node.indicator_level == 'strategic') {
+      return true;
+    }
+  
+    for(let edge of edges.filter(edge => edge.from === node.id)) {
+      if (this.isConnectedToOutcome(nodes.find(node => node.id == edge.to), nodes, edges)) {
+        return true;
+      }
+    }
+    return false;
+  }
 
   combineData(nodes, edges) {
     // Combine edges data to indicator nodes
+
+    // Prune nodes that do not reach a strategic indicator.
+    // Could be a lot faster, but we're dealing with quite small
+    // graphs here.
+    nodes = nodes.filter(node => this.isConnectedToOutcome(node, nodes, edges));
+    let nodeids = nodes.map(node => node.id);
+    edges = edges.filter(edge => nodeids.includes(edge.to) && nodeids.includes(edge.from));
+
+
     this.indicators = nodes;
     this.indicators.forEach((item, index) => {
       this.indicators[index].from = edges.filter(edge => edge.from === item.id);
@@ -355,9 +380,17 @@ class IndicatorCausal extends React.Component {
     if (edgeLength === 0) {
       edgeStyle.width = '1px';
       edgeStyle.height = `${24}px`;
-      edgeStyle.top = '-24px';
+      if(edgeHeight < 0) {
+      	edgeStyle.bottom = '-24px';
+	edgeStyle.top = undefined;
+	direction = -1;
+      } else {
+        // TODO: This case hasn't been tested!
+	edgeStyle.top = '-24px';
+	direction = 1;
+
+      }
       edgeStyle.left = `${40 + (vOffset * 5)}px`;
-      direction = (edgeHeight >= 0) ? 1 : -1;
     }
 
     return (
