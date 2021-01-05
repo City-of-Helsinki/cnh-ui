@@ -15,7 +15,7 @@
     "apollo-link-error": "^1.1.12",
     "apollo-link-http": "^1.5.16",
     "autoprefixer": "^9.7.4",
-    "axios": "^0.19.1",
+    "axios": "^0.21.1",
     "babel-plugin-inline-react-svg": "^1.1.0",
     "bootstrap": "^4.4.1",
     "cacheable-response": "^1.10.0",
