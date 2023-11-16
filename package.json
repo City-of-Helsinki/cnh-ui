@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "author": "Tero Tikkanen <tero.tikkanen@gmail.com>",
   "dependencies": {
-    "@sentry/browser": "^5.11.1",
+    "@sentry/browser": "^5.30.0",
     "@sentry/node": "^5.11.1",
     "@sentry/webpack-plugin": "^1.9.3",
     "@zeit/next-bundle-analyzer": "^0.1.2",
